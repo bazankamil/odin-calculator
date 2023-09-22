@@ -14,6 +14,7 @@
 html,
 body {
   height: 100%;
+  font-family: "Play", sans-serif;
 }
 
 html {
@@ -61,10 +62,6 @@ body {
 
 /* || GENERAL STYLES */
 
-.working {
-  background-color: yellow;
-}
-
 .not-working {
   background: repeating-linear-gradient(
     -55deg,
@@ -90,7 +87,7 @@ body {
   width: 450px;
   height: 600px;
   margin: 100px auto 20px;
-  border: 1px solid red;
+  border-radius: 1rem;
   background-color: #352f44;
 }
 /* TITLE */
@@ -106,6 +103,8 @@ body {
   font-size: 2.4rem;
   text-align: right;
   padding: 1rem;
+  margin: 0 2rem 0 2rem;
+  border-radius: 0.5rem;
 }
 
 /* MAINTENANCE */
@@ -118,6 +117,16 @@ body {
 
 .maintenance__button {
   background-color: #5c5470;
+  width: 3rem;
+  height: 2rem;
+  border-radius: 0.3rem;
+  padding: 0.1rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.button-ON-OFF {
+  width: 3.5rem;
 }
 
 /* MAIN */
@@ -130,7 +139,10 @@ body {
 
 .main__button {
   background-color: #b9b4c7;
-  margin: 1rem;
+  margin: 0.9rem;
+  border-radius: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
 .button-plus {
@@ -140,6 +152,11 @@ body {
 /*ATTRIBUTION*/
 .attribution {
   text-align: center;
+  color: #b9b4c7;
+}
+
+.attribution a {
+  color: #faf0e6;
 }
 /* MEDIA */
 /* Small */
