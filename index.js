@@ -21,6 +21,8 @@ const buttonElementEmpty = document.querySelector(".button-empty");
 const buttonElementEqual = document.querySelector(".button-equal");
 const divElementResultScreen = document.querySelector(".result__screen");
 
+//Operator
+
 //Event listeners
 
 buttons.forEach((item) => {
@@ -57,10 +59,15 @@ function operate(variable1, variable2, operator) {
 }
 
 /*TODO:
--event listenery na click- update czytnika
--zapisywana liczba w var1 kiedy nacisnie sie plus- wtedy war 1 przekazywane jako a do funkcji add 
--listener na operatory jesli jakis nacisniety to liczba z wyswietlacza wskakuje do var 1 i czysci wyswietlacz
--kiedy nacisnie sie rowna sie to var1 i var2 przekazane odpowiedniej funkcji i wynik przekazywany do wyswietlacza
+-Dodac logo (stanczyka i logo odina) a na prawo dwa guziki- work i nie work
+//wybrac dzialajace guziki, na reszte dac nie dzialajace kolory
+//query selector all na operatory, ale tylko dzialajace
+//zmienna operator na 0, ale kiedy nacisniety button to otrzymuje wartosc "add, substract etc"
+//kiedy nacisniety operator to wartosc wyswietlacza zapisywana w var1 a wyswietlacz resetowany
+
+//rowna sie
+//jesli nacisniete rowna sie to zawartosc result screen zapisywana w var 2,
+//display usuwany, wartosci przekazyane do funkcji i wyswietlany wynik
 
 -klasy z numerami pousuwac
 -

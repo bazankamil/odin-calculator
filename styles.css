@@ -92,7 +92,7 @@ body {
 }
 /* TITLE */
 .title {
-  height: 5%;
+  height: 7%;
 }
 /* RESULT */
 .result {
@@ -131,7 +131,7 @@ body {
 
 /* MAIN */
 .main {
-  height: 70%;
+  height: 68%;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(4, 1fr);
