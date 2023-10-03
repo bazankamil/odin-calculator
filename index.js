@@ -13,30 +13,53 @@ const operators = document.querySelectorAll(".button-operator");
 const buttonElementPercentage = document.querySelector(".button-percentage");
 const buttonElementRoot = document.querySelector(".button-root");
 const buttonElementDot = document.querySelector(".button-dot");
-const buttonElementEmpty = document.querySelector(".button-empty");
+const buttonElementBck = document.querySelector(".button-bck");
 const buttonElementEqual = document.querySelector(".button-equal");
 const divElementResultScreen = document.querySelector(".result__screen");
 
 //Variables
-let variable1 = 0;
+let variable1;
 let variable2;
 let operator;
 let result;
+
 //Event listeners button push
 
 buttons.forEach((item) => {
   item.addEventListener("click", function () {
-    divElementResultScreen.innerText += this.innerText;
+    if (divElementResultScreen.innerText === "Too big!") {
+      divElementResultScreen.innerText = this.innerText;
+    } else {
+      divElementResultScreen.innerText += this.innerText;
+    }
+
+    if (divElementResultScreen.innerText.length > 15) {
+      divElementResultScreen.innerText = "Too big!";
+    }
   });
+});
+
+buttonElementBck.addEventListener("click", function () {
+  divElementResultScreen.innerText = divElementResultScreen.innerText.slice(
+    0,
+    -1
+  );
 });
 
 //Event listener operators
 
 operators.forEach((item) => {
   item.addEventListener("click", function () {
-    operator = this.innerText;
-    variable1 = divElementResultScreen.innerText;
-    divElementResultScreen.innerText = "";
+    if (variable1 >= 0) {
+      result = operate(variable1, divElementResultScreen.innerText, operator);
+      operator = this.innerText;
+      variable1 = result;
+      divElementResultScreen.innerText = "";
+    } else {
+      operator = this.innerText;
+      variable1 = divElementResultScreen.innerText;
+      divElementResultScreen.innerText = "";
+    }
   });
 });
 
@@ -47,7 +70,13 @@ buttonElementEqual.addEventListener("click", function () {
     variable2 = divElementResultScreen.innerText;
     result = operate(variable1, variable2, operator);
     if (result) {
-      divElementResultScreen.innerText = result;
+      if (result === "Bingo") {
+        divElementResultScreen.innerText = "Bingo!";
+      } else if (result > 1e15) {
+        divElementResultScreen.innerText = "Too big!";
+      } else {
+        divElementResultScreen.innerText = parseFloat(result.toFixed(3));
+      }
     }
   }
 });
@@ -55,6 +84,10 @@ buttonElementEqual.addEventListener("click", function () {
 //Clear
 buttonElementCE.addEventListener("click", function () {
   divElementResultScreen.innerText = "";
+  variable1 = undefined;
+  variable2 = undefined;
+  operator = undefined;
+  result = undefined;
 });
 
 //Calculator funcions
@@ -63,15 +96,18 @@ function add(a, b) {
 }
 
 function subtract(a, b) {
-  return a - b;
+  return Number(a) - Number(b);
 }
 
 function multiply(a, b) {
-  return a * b;
+  return Number(a) * Number(b);
 }
 
 function divide(a, b) {
-  return a / b;
+  if (b == 0) {
+    return "Bingo";
+  }
+  return Number(a) / Number(b);
 }
 
 function operate(variable1, variable2, operator) {
@@ -88,17 +124,10 @@ function operate(variable1, variable2, operator) {
 
 /*TODO:
 
--ciagi dzialan: jesli var 1 i var2 maja wartosc to kolejny operant dziala jak rowna sie i zapisuje wynik w var1 var1 rowna sie result
--zaokragla do 15 po przecinku
--jesli result wiekszy niz 15 liczb to albo ucinac albo komunikat, ze za duza liczba
--rowna sie bez var1 i var2- nic nie robic powinno
--rowna sie dziala tylko jak oba var maja wartosc
--dzielenie przez zero powinno dac jakis komunikat smieszkowaty
+
 -dodac kropke i dzialania na ulamkach, ale kiedy jest juz jedna kropka nie pozwalaj na wiecej
--zamienic pusty na backspace i usuwac ostatnia wpisana liczbe
+-jesli nacisniety rowna sie i wyswietli sie result, to wtedy result wpada do var1 zeby moc dalej liczyc
 
-
--klasy z numerami pousuwac
 -on/off dezaktywuje kalkulator (kolory wyszarza) i nie da sie nic kliknac procz on
 -niedzialajace guziki wyszarzyc
 
