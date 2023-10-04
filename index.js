@@ -1,8 +1,5 @@
 /* SELECTORS */
 //Maintenance
-const buttonElementMRC = document.querySelector(".button-MRC");
-const buttonElementMPlus = document.querySelector(".button-MPlus");
-const buttonElementMMinus = document.querySelector(".button-MMinus");
 const buttonElementCE = document.querySelector(".button-CE");
 const buttonElementOnOff = document.querySelector(".button-ON-OFF");
 //Numbers
@@ -10,18 +7,19 @@ const buttons = document.querySelectorAll(".button-number");
 //Operators
 const operators = document.querySelectorAll(".button-operator");
 //Rest
-const buttonElementPercentage = document.querySelector(".button-percentage");
-const buttonElementRoot = document.querySelector(".button-root");
 const buttonElementDot = document.querySelector(".button-dot");
 const buttonElementBck = document.querySelector(".button-bck");
 const buttonElementEqual = document.querySelector(".button-equal");
 const divElementResultScreen = document.querySelector(".result__screen");
+//Everything
+const allButtons = document.querySelectorAll(".onOff");
 
 //Variables
 let variable1;
 let variable2;
 let operator;
 let result;
+let token = 0;
 
 //Event listeners button push
 
@@ -39,6 +37,8 @@ buttons.forEach((item) => {
   });
 });
 
+//Backspace
+
 buttonElementBck.addEventListener("click", function () {
   divElementResultScreen.innerText = divElementResultScreen.innerText.slice(
     0,
@@ -46,19 +46,41 @@ buttonElementBck.addEventListener("click", function () {
   );
 });
 
+//Dot
+
+buttonElementDot.addEventListener("click", function () {
+  if (!divElementResultScreen.innerText.includes(".")) {
+    divElementResultScreen.innerText += ".";
+  }
+});
+
+//ON / OFF
+allButtons.forEach((button) => {
+  buttonElementOnOff.addEventListener("click", function () {
+    button.classList.toggle("not-working");
+  });
+});
+
 //Event listener operators
 
 operators.forEach((item) => {
   item.addEventListener("click", function () {
-    if (variable1 >= 0) {
-      result = operate(variable1, divElementResultScreen.innerText, operator);
-      operator = this.innerText;
-      variable1 = result;
-      divElementResultScreen.innerText = "";
+    if (token === 0) {
+      if (variable1 >= 0) {
+        result = operate(variable1, divElementResultScreen.innerText, operator);
+        operator = this.innerText;
+        variable1 = result;
+        divElementResultScreen.innerText = "";
+      } else {
+        operator = this.innerText;
+        variable1 = divElementResultScreen.innerText;
+        divElementResultScreen.innerText = "";
+      }
     } else {
-      operator = this.innerText;
       variable1 = divElementResultScreen.innerText;
       divElementResultScreen.innerText = "";
+      operator = this.innerText;
+      token = 0;
     }
   });
 });
@@ -78,6 +100,10 @@ buttonElementEqual.addEventListener("click", function () {
         divElementResultScreen.innerText = parseFloat(result.toFixed(3));
       }
     }
+    variable1 = result;
+    variable2 = undefined;
+    result = undefined;
+    token = 1;
   }
 });
 
@@ -121,15 +147,3 @@ function operate(variable1, variable2, operator) {
     return divide(variable1, variable2);
   }
 }
-
-/*TODO:
-
-
--dodac kropke i dzialania na ulamkach, ale kiedy jest juz jedna kropka nie pozwalaj na wiecej
--jesli nacisniety rowna sie i wyswietli sie result, to wtedy result wpada do var1 zeby moc dalej liczyc
-
--on/off dezaktywuje kalkulator (kolory wyszarza) i nie da sie nic kliknac procz on
--niedzialajace guziki wyszarzyc
-
--z czysta lista TODO- refaktor, pousuwac nieuzywany kod i udostepnic
-*/
