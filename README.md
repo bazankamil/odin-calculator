@@ -13,6 +13,10 @@ In this project, I practiced DOM manipulation and logic writing.
 
 ---
 
+![](./odin-calc-screen.png)
+
+---
+
 ## Description
 
 It's calculator. And it works!
